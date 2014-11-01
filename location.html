@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<link rel="shortcut icon" href="./css/bootstrap.css"> 
+<link rel="stylesheet" type="text/css" href="./css/bootstrap.min.css" />
+<link rel="stylesheet" type="text/css" href="./css/bootswatch.less" />
+<link rel="shortcut icon" href="./css/variables.less"> 
+<script src="//code.jquery.com/jquery-1.10.2.js"></script>
+<script type="text/javascript">
+
+$(document).ready(function(){
+	$("#btn1").click(function(){
+		getLocation();
+	});
+
+    $("#btn2").click(function(){
+         var lat= $("#l1").val();
+         var lng=$("#l2").val(); 
+         var latlng = lat+","+lng;
+     $.get( "https://maps.googleapis.com/maps/api/geocode/json?latlng="+latlng, function( data ) {
+  
+        $(".address").html(data.results[0].formatted_address);
+    });
+    });
+
+function getLocation() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(showPosition);
+    } else { 
+        
+    }
+}
+
+function showPosition(position) {
+     var lat= position.coords.latitude;
+     var lng=position.coords.longitude;	
+     var latlng = lat+","+lng;
+     $.get( "https://maps.googleapis.com/maps/api/geocode/json?latlng="+latlng, function( data ) {
+  
+  	    $(".address").html(data.results[0].formatted_address);
+});
+}
+});
+</script>
+</head>
+<body>
+    <table boder="2" align="center">
+    <tr><td><font size="10" color="green" style="font-family:verdana">Latitude :-</font></td> 
+    <td><input type="text" name="lat" id="l1" class="form-control" id="inputSuccess" required></td></tr>
+    <tr><td><font size="10" color="green" style="font-family:verdana">Longitude :-</font></td> 
+    <td><input type="text" name="lon" id="l2" class="form-control" id="inputSuccess" required></td></tr>
+    </table>
+    <br/>
+    <br/>
+    <center>
+    <input type="button" value="Get Address" id="btn2" class="btn btn-success"/>
+	<input type="button" value="Get User Current Location" id="btn1" class="btn btn-success"/>
+    <br/>
+    <br/>
+    <table>
+     <tr><td>   
+    <div class="alert alert-dismissable alert-info">
+    <div class="address"></div>
+    </div>
+    </td></tr> 
+    </table>
+    </center>
+</body>
+</html>
