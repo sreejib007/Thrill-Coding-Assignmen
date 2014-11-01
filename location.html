@@ -2,29 +2,32 @@
 
 <html>
 <head>
+ <!-- CSS Fies I Use BootStrap -->
 <link rel="shortcut icon" href="./css/bootstrap.css"> 
 <link rel="stylesheet" type="text/css" href="./css/bootstrap.min.css" />
 <link rel="stylesheet" type="text/css" href="./css/bootswatch.less" />
 <link rel="shortcut icon" href="./css/variables.less"> 
+<!-- jquery link -->
 <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+<!-- Script Start -->
 <script type="text/javascript">
 
 $(document).ready(function(){
-	$("#btn1").click(function(){
-		getLocation();
+	$("#btn1").click(function(){ //on click action
+		getLocation(); // for gat location
 	});
 
-    $("#btn2").click(function(){
+    $("#btn2").click(function(){  //on click action
          var lat= $("#l1").val();
          var lng=$("#l2").val(); 
          var latlng = lat+","+lng;
      $.get( "https://maps.googleapis.com/maps/api/geocode/json?latlng="+latlng, function( data ) {
   
-        $(".address").html(data.results[0].formatted_address);
+        $(".address").html(data.results[0].formatted_address); // Printing data from json object
     });
     });
 
-function getLocation() {
+function getLocation() { // calling function
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(showPosition);
     } else { 
@@ -32,17 +35,18 @@ function getLocation() {
     }
 }
 
-function showPosition(position) {
+function showPosition(position) {  // calling function
      var lat= position.coords.latitude;
      var lng=position.coords.longitude;	
      var latlng = lat+","+lng;
      $.get( "https://maps.googleapis.com/maps/api/geocode/json?latlng="+latlng, function( data ) {
   
-  	    $(".address").html(data.results[0].formatted_address);
+  	    $(".address").html(data.results[0].formatted_address);  // Printing data from json object
 });
 }
 });
 </script>
+<!--  Script End  -->
 </head>
 <body>
     <table boder="2" align="center">
